@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -58,5 +60,19 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps(); // ->withPivot('created_at', 'updated_at');
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->attributes['first_name'] . ' ' . $this->attributes['last_name'],
+        );
+    }
+
+    protected function username(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => Str::slug($value)
+        );
     }
 }
