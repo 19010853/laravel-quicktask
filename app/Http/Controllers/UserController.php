@@ -13,7 +13,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::all();
+        return view('users.index', [
+            'users' => User::all(),
+        ]);
     }
 
     /**
@@ -46,6 +48,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -54,6 +57,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $user->username = $request->username;
+        $user->save();
+        return redirect()->back();
     }
 
     /**
