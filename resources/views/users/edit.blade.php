@@ -16,20 +16,25 @@
                 @csrf
                 @method('PUT')
                 <div class="mt-4">
-                    <x-input-label for="name" :value="__('Name')" />
+                    <x-input-label for="username" :value="__('Username')" />
 
-                    <x-text-input id="name" class="block mt-1 w-full"
+                    <x-text-input id="username" class="block mt-1 w-full"
                                     type="text"
-                                    name="name"
+                                    name="username"
                                     value="{{ $user->username }}"
-                                    required autocomplete="name" />
+                                    required autocomplete="username" />
                     
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('username')" class="mt-2" />
                 </div>
                 <x-primary-button class="mt-4">
                     {{ __('Edit') }}
                 </x-primary-button>
             </form>
+            <a href="{{ route('users.index') }}">
+                <x-primary-button class="mt-4">
+                    {{ __('Back') }}
+                </x-primary-button>
+            </a>
         </div>
     </div>
 </x-app-layout>
